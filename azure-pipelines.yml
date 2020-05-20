@@ -13,7 +13,17 @@ steps:
 - task: Go@0
   inputs:
     command: 'get'
-    arguments: './test'
+    arguments: '-u golang.org/x/lint/golint'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+    arguments: 'github.com/gruntwork-io/terratest/modules/terraform'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+    arguments: 'github.com/stretchr/testify/assert'
 
 - task: Go@0
   inputs:
