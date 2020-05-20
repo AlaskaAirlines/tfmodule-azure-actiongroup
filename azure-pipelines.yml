@@ -13,6 +13,7 @@ steps:
 - task: Go@0
   inputs:
     command: 'get'
+    arguments: './test'
 
 - task: Go@0
   inputs:
