@@ -1,0 +1,10 @@
+resource-group-name = "azureclivalidation-test-group"
+appName             = "sampleModule"
+environment         = "test"
+shortName           = "blah"
+enableEmail         = true
+emailName           = "TestName"
+emailAddress        = "shadowquests@alaskaair.com"
+enableWebHook       = true
+webhookName         = "TestName"
+webhookServiceUri   = "http://example.com/alert"
