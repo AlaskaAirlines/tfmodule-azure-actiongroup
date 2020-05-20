@@ -12,6 +12,10 @@ pool:
 steps:
 - task: Go@0
   inputs:
+    command: 'get'
+
+- task: Go@0
+  inputs:
     command: 'test'
     arguments: './test'
 
