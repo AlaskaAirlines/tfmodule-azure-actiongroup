@@ -1,4 +1,4 @@
-resource-group-name = "azureclivalidation-test-group"
+resource-group-name = "tfmodulevalidation-test-group"
 appName             = "sampleModule"
 environment         = "test"
 shortName           = "blah"
