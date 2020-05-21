@@ -25,6 +25,13 @@ steps:
     command: 'get'
     arguments: 'github.com/stretchr/testify/assert'
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'tfmodulevalidation-test-group-SPN'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'echo ''Authenticating Azure CLI for go tests'''
+
 - task: Go@0
   inputs:
     command: 'test'
