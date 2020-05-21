@@ -25,10 +25,12 @@ steps:
     command: 'get'
     arguments: 'github.com/stretchr/testify/assert'
 
-- task: Go@0
+- task: AzureCLI@2
   inputs:
-    command: 'test'
-    arguments: './test'
+    azureSubscription: 'tfmodulevalidation-test-group-SPN'
+    scriptType: 'batch'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'go test ./test'
 
 - task: Npm@1
   inputs:
