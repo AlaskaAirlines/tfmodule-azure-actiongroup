@@ -10,12 +10,12 @@ import (
 func TestTerraformEmail(t *testing.T) {
 	// Arrange
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../example/Email/.",
+		TerraformDir: "../example/email/.",
 	}
-	//defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, terraformOptions)
 
 	// Act
-	terraform.InitAndPlan(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
 
 	// Assert
 	assert := assert.New(t)
@@ -27,12 +27,12 @@ func TestTerraformEmail(t *testing.T) {
 func TestTerraformEmailAndWebHook(t *testing.T) {
 	// Arrange
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../example/EmailAndWebHook/.",
+		TerraformDir: "../example/emailAndWebHook/.",
 	}
-	//defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, terraformOptions)
 
 	// Act
-	terraform.InitAndPlan(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
 
 	// Assert
 	assert := assert.New(t)
@@ -46,10 +46,10 @@ func TestTerraformSms(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/sms/.",
 	}
-	//defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, terraformOptions)
 
 	// Act
-	terraform.InitAndPlan(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
 
 	// Assert
 	assert := assert.New(t)
@@ -63,10 +63,10 @@ func TestTerraformWebhook(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/webhook/.",
 	}
-	//defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, terraformOptions)
 
 	// Act
-	terraform.InitAndPlan(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
 
 	// Assert
 	assert := assert.New(t)

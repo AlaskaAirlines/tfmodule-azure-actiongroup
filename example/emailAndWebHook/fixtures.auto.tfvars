@@ -1,5 +1,5 @@
 resource-group-name = "tfmodulevalidation-test-group"
-appName             = "sampleModule"
+appName             = "emailWebHookSample"
 environment         = "test"
 shortName           = "blah"
 enableEmail         = true

@@ -1,5 +1,5 @@
 resource-group-name = "tfmodulevalidation-test-group"
-appName             = "sampleModule"
+appName             = "smsSample"
 environment         = "test"
 shortName           = "blah"
 enableSMS           = true
