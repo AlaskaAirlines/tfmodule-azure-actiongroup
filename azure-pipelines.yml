@@ -10,32 +10,20 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Go@0
-  inputs:
-    command: 'get'
-    arguments: '-u golang.org/x/lint/golint'
-
-- task: Go@0
-  inputs:
-    command: 'get'
-    arguments: 'github.com/gruntwork-io/terratest/modules/terraform'
-
-- task: Go@0
-  inputs:
-    command: 'get'
-    arguments: 'github.com/stretchr/testify/assert'
-
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'tfmodulevalidation-test-group-SPN'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'echo ''Authenticating Azure CLI for go tests'''
-
-- task: Go@0
-  inputs:
-    command: 'test'
-    arguments: './test'
+    inlineScript: |
+      tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
+      export PATH=$PATH:/usr/local/go/bin
+      
+      go get -u golang.org/x/lint/golint
+      go get github.com/gruntwork-io/terratest/modules/terraform
+      go get github.org/stretchr/testify/assert
+      
+      go test ./test
 
 - task: Npm@1
   inputs:
