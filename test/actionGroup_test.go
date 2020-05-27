@@ -12,7 +12,7 @@ func TestTerraformEmail(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/Email/.",
 	}
-	defer terraform.Destroy(t, terraformOptions)
+	//defer terraform.Destroy(t, terraformOptions)
 
 	// Act
 	terraform.InitAndPlan(t, terraformOptions)
@@ -29,7 +29,7 @@ func TestTerraformEmailAndWebHook(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/EmailAndWebHook/.",
 	}
-	defer terraform.Destroy(t, terraformOptions)
+	//defer terraform.Destroy(t, terraformOptions)
 
 	// Act
 	terraform.InitAndPlan(t, terraformOptions)
@@ -46,7 +46,7 @@ func TestTerraformSms(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/sms/.",
 	}
-	defer terraform.Destroy(t, terraformOptions)
+	//defer terraform.Destroy(t, terraformOptions)
 
 	// Act
 	terraform.InitAndPlan(t, terraformOptions)
@@ -63,7 +63,7 @@ func TestTerraformWebhook(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../example/webhook/.",
 	}
-	defer terraform.Destroy(t, terraformOptions)
+	//defer terraform.Destroy(t, terraformOptions)
 
 	// Act
 	terraform.InitAndPlan(t, terraformOptions)
