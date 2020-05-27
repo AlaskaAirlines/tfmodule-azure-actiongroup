@@ -9,21 +9,29 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- group: 'Terraform Module Variables'
+
 steps:
-- task: AzureCLI@2
+- task: Go@0
   inputs:
-    azureSubscription: 'tfmodulevalidation-test-group-SPN'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      tar -C /usr/local -xzf go1.2.1.linux-amd64.tar.gz
-      export PATH=$PATH:/usr/local/go/bin
-      
-      go get -u golang.org/x/lint/golint
-      go get github.com/gruntwork-io/terratest/modules/terraform
-      go get github.org/stretchr/testify/assert
-      
-      go test ./test
+    command: 'get'
+    arguments: '-u golang.org/x/lint/golint'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+    arguments: 'github.com/gruntwork-io/terratest/modules/terraform'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+    arguments: 'github.com/stretchr/testify/assert'
+
+- task: Go@0
+  inputs:
+    command: 'test'
+    arguments: './test'
 
 - task: Npm@1
   inputs:
