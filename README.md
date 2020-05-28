@@ -4,13 +4,13 @@
 
 ## Overview
 
-
+This module provides the Alaska Airlines standards for creating an Azure Action Group following our esablished naming conventions. The examples show how to use the module. To stay up to date on our latest changes, visit our [Change Log](./docs/CHANGELOG.md)
 
 ## Usage
 
 ```hcl
 module "tfmodule-azure-actiongroup" {
-  source = "git::ssh://"
+  source = "github.com/AlaskaAirlines/tfmodule-azure-actiongroup"
 }
 ```
 
