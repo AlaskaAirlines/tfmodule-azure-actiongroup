@@ -13,6 +13,10 @@ variables:
 - group: 'Terraform Module Variables'
 
 steps:
+  env:
+    ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+    GH_TOKEN: $(GH_TOKEN)
+
 - task: Go@0
   inputs:
     command: 'get'
@@ -27,13 +31,6 @@ steps:
   inputs:
     command: 'get'
     arguments: 'github.com/stretchr/testify/assert'
-
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'tfmodulevalidation-test-group-SPN'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'Write-Host "Initialize Connection to Azure for testing"'
 
 - task: Go@0
   inputs:
