@@ -13,10 +13,6 @@ variables:
 - group: 'Terraform Module Variables'
 
 steps:
-  env:
-    ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-    GH_TOKEN: $(GH_TOKEN)
-
 - task: Go@0
   inputs:
     command: 'get'
@@ -36,6 +32,9 @@ steps:
   inputs:
     command: 'test'
     arguments: './test'
+  env:
+    ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+    GH_TOKEN: $(GH_TOKEN)
 
 - task: Npm@1
   inputs:
