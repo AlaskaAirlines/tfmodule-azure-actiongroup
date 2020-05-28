@@ -28,6 +28,13 @@ steps:
     command: 'get'
     arguments: 'github.com/stretchr/testify/assert'
 
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'tfmodulevalidation-test-group-SPN'
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'Write-Host "Initialize Connection to Azure for testing"'
+
 - task: Go@0
   inputs:
     command: 'test'
