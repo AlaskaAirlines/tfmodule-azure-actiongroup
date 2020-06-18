@@ -41,6 +41,7 @@ func TestTerraformEmail(t *testing.T) {
 	assert.Contains(outputValue, expectedName)
 
 	actionGroup := GetActionGroupsResource(t, expectedName)
+	assert.NotNil(actionGroup)
 	assert.Equal(1, len(*actionGroup.EmailReceivers))
 	assert.Equal(0, len(*actionGroup.SmsReceivers))
 	assert.Equal(0, len(*actionGroup.WebhookReceivers))
@@ -65,6 +66,7 @@ func TestTerraformEmailAndWebHook(t *testing.T) {
 	assert.Contains(outputValue, expectedName)
 
 	actionGroup := GetActionGroupsResource(t, expectedName)
+	assert.NotNil(actionGroup)
 	assert.Equal(1, len(*actionGroup.EmailReceivers))
 	assert.Equal(0, len(*actionGroup.SmsReceivers))
 	assert.Equal(1, len(*actionGroup.WebhookReceivers))
@@ -89,6 +91,7 @@ func TestTerraformSms(t *testing.T) {
 	assert.Contains(outputValue, expectedName)
 
 	actionGroup := GetActionGroupsResource(t, expectedName)
+	assert.NotNil(actionGroup)
 	assert.Equal(0, len(*actionGroup.EmailReceivers))
 	assert.Equal(1, len(*actionGroup.SmsReceivers))
 	assert.Equal(0, len(*actionGroup.WebhookReceivers))
@@ -113,6 +116,7 @@ func TestTerraformWebhook(t *testing.T) {
 	assert.Contains(outputValue, expectedName)
 
 	actionGroup := GetActionGroupsResource(t, expectedName)
+	assert.NotNil(actionGroup)
 	assert.Equal(0, len(*actionGroup.EmailReceivers))
 	assert.Equal(0, len(*actionGroup.SmsReceivers))
 	assert.Equal(1, len(*actionGroup.WebhookReceivers))
