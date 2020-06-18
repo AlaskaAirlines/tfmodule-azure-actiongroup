@@ -8,68 +8,37 @@ data "azurerm_resource_group" "rg" {
   name = var.resource-group-name
 }
 
-resource "azurerm_monitor_action_group" "actionGroupEmail" {
-  count = var.enableEmail && ! var.enableWebHook && ! var.enableWebHook ? 1 : 0
-
+resource "azurerm_monitor_action_group" "actionGroup" {
   name                = "${var.appName}-${var.environment}-actiongroup"
   resource_group_name = data.azurerm_resource_group.rg.name
   short_name          = var.shortName
   tags                = data.azurerm_resource_group.rg.tags
 
-  email_receiver {
-    name                    = var.emailName
-    email_address           = var.emailAddress
-    use_common_alert_schema = true
-  }
-}
-
-resource "azurerm_monitor_action_group" "actionGroupSMS" {
-  count = var.enableSMS && ! var.enableEmail && ! var.enableWebHook ? 1 : 0
-
-  name                = "${var.appName}-${var.environment}-actiongroup"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  short_name          = var.shortName
-  tags                = data.azurerm_resource_group.rg.tags
-
-  sms_receiver {
-    name         = var.smsName
-    country_code = var.smsCountryCode
-    phone_number = var.smsPhoneNumber
-  }
-}
-
-resource "azurerm_monitor_action_group" "actionGroupWebHook" {
-  count = var.enableWebHook && ! var.enableEmail && ! var.enableSMS ? 1 : 0
-
-  name                = "${var.appName}-${var.environment}-actiongroup"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  short_name          = var.shortName
-  tags                = data.azurerm_resource_group.rg.tags
-
-  webhook_receiver {
-    name                    = "callmyapiaswell"
-    service_uri             = "http://example.com/alert"
-    use_common_alert_schema = true
-  }
-}
-
-resource "azurerm_monitor_action_group" "actionGroupEmailAndWebHook" {
-  count = var.enableEmail && var.enableWebHook && ! var.enableSMS ? 1 : 0
-
-  name                = "${var.appName}-${var.environment}-actiongroup"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  short_name          = var.shortName
-  tags                = data.azurerm_resource_group.rg.tags
-
-  email_receiver {
-    name                    = var.emailName
-    email_address           = var.emailAddress
-    use_common_alert_schema = true
+  dynamic "email_receiver" {
+    for_each = var.enableEmail ? ["email_receiver"] : []
+    content {
+      name                    = var.emailName
+      email_address           = var.emailAddress
+      use_common_alert_schema = true
+    }
   }
 
-  webhook_receiver {
-    name                    = "callmyapiaswell"
-    service_uri             = "http://example.com/alert"
-    use_common_alert_schema = true
+  dynamic "sms_receiver" {
+    for_each = var.enableSMS ? ["sms_receiver"] : []
+    content {
+      name         = var.smsName
+      country_code = var.smsCountryCode
+      phone_number = var.smsPhoneNumber
+    }
   }
+
+  dynamic "webhook_receiver" {
+    for_each = var.enableWebHook ? ["webhook_receiver"] : []
+    content {
+      name                    = var.webhookName
+      service_uri             = var.webhookServiceUri
+      use_common_alert_schema = true
+    }
+  }
+
 }
