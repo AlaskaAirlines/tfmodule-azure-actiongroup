@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"errors"
 	"os"
 	"testing"
 
@@ -137,6 +138,9 @@ func getActionGroupsResourceE(ruleName string) (*insights.ActionGroupResource, e
 
 func getActionGroupsClient() (*insights.ActionGroupsClient, error) {
 	subID := os.Getenv(AzureSubscriptionID)
+	if subID == "" {
+		return nil, errors.New("Unable to retrieve Subscription ID")
+	}
 
 	metricAlertsClient := insights.NewActionGroupsClient(subID)
 
