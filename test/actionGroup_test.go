@@ -116,7 +116,7 @@ func TestTerraformWebhook(t *testing.T) {
 	assert.Contains(outputValue, expectedName)
 
 	actionGroup := GetActionGroupsResource(t, expectedName)
-	assert.NotNil(actionGroup)
+	assert.NotNil(*actionGroup)
 	assert.Equal(0, len(*actionGroup.EmailReceivers))
 	assert.Equal(0, len(*actionGroup.SmsReceivers))
 	assert.Equal(1, len(*actionGroup.WebhookReceivers))
@@ -136,6 +136,9 @@ func getActionGroupsResourceE(ruleName string) (*insights.ActionGroupResource, e
 	}
 
 	actionGroup, err := client.Get(context.Background(), AzureResGroupName, ruleName)
+	if err != nil {
+		return nil, err
+	}
 
 	return &actionGroup, nil
 }
