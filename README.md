@@ -17,15 +17,13 @@ module "tfmodule-azure-actiongroup" {
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| azurerm | =2.0.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| azurerm | =2.0.0 |
+| azurerm | n/a |
 
 ## Inputs
 
