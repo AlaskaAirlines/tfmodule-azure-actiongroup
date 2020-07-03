@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.0.2](https://github.com/AlaskaAirlines/tfmodule-azure-actiongroup/compare/v1.0.1...v1.0.2) (2020-07-03)
+
+
+### Bug Fixes
+
+* remove hardcoded provider version in module ([8bd574f](https://github.com/AlaskaAirlines/tfmodule-azure-actiongroup/commit/8bd574f951198c59323cf7aca889ef7f3018c5cf))
+
 ## [1.0.1](https://github.com/AlaskaAirlines/tfmodule-azure-actiongroup/compare/v1.0.0...v1.0.1) (2020-06-18)
 
 
