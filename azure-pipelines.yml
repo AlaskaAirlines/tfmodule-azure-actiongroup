@@ -1,10 +1,5 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -12,64 +7,44 @@ pool:
 variables:
 - group: 'Terraform Module Variables'
 
-steps:
-- task: Go@0
-  displayName: 'Go get golint'
-  inputs:
-    command: 'get'
-    arguments: '-u golang.org/x/lint/golint'
+jobs:
+- job: Build_Test_Deploy
+  displayName: Build, Test and Deploy
+  timeoutInMinutes: "130"
+  steps:
+  - task: Go@0
+    displayName: 'Go get golint'
+    inputs:
+      command: 'get'
+      arguments: '-u golang.org/x/lint/golint'
 
-- task: Go@0
-  displayName: 'Go get terratest/modules/terraform'
-  inputs:
-    command: 'get'
-    arguments: 'github.com/gruntwork-io/terratest/modules/terraform'
+  - task: Go@0
+    displayName: 'Go get test dependencies'
+    inputs:
+      command: 'get'
+      arguments: '-t ./...'
 
-- task: Go@0
-  displayName: 'Go get terratest/modules/azure'
-  inputs:
-    command: 'get'
-    arguments: 'github.com/gruntwork-io/terratest/modules/azure'
+  - task: Go@0
+    displayName: 'Go test'
+    inputs:
+      command: 'test'
+      arguments: './test -timeout 2h -v'
+    env:
+      ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+      AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
+      AZURE_TENANT_ID: $(ARM_TENANT_ID)
+      AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      AZURE_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+  
+  - task: Npm@1
+    displayName: 'Npm Install'
+    inputs:
+      command: 'install'
 
-- task: Go@0
-  displayName: 'Go get azure-sdk-for-go/.../insights'
-  inputs:
-    command: 'get'
-    arguments: 'github.com/Azure/azure-sdk-for-go/profiles/2019-03-01/resources/mgmt/insights'
-
-- task: Go@0
-  displayName: 'Go get testify/assert'
-  inputs:
-    command: 'get'
-    arguments: 'github.com/stretchr/testify/assert'
-
-- task: Go@0
-  displayName: 'Go get testify/require'
-  inputs:
-    command: 'get'
-    arguments: 'github.com/stretchr/testify/require'
-
-- task: Go@0
-  displayName: 'Go test'
-  inputs:
-    command: 'test'
-    arguments: './test'
-  env:
-    ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-    AZURE_CLIENT_ID: $(ARM_CLIENT_ID)
-    AZURE_TENANT_ID: $(ARM_TENANT_ID)
-    AZURE_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-    AZURE_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-
-- task: Npm@1
-  displayName: 'Npm Install'
-  inputs:
-    command: 'install'
-
-- task: Bash@3
-  displayName: 'Release via semantic-release'
-  inputs:
-    targetType: 'inline'
-    script: 'npx semantic-release'
-  env:
-    GH_TOKEN: $(GH_TOKEN)
+  - task: Bash@3
+    displayName: 'Release via semantic-release'
+    inputs:
+      targetType: 'inline'
+      script: 'npx semantic-release'
+    env:
+      GH_TOKEN: $(BOT_GH_TOKEN)
