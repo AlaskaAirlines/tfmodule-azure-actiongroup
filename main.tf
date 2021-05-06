@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name = var.resource-group-name
+  name = var.resource_group_name
 }
 
 resource "azurerm_monitor_action_group" "actionGroup" {

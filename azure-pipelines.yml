@@ -8,7 +8,7 @@ variables:
 - group: 'Terraform Module Variables'
 
 jobs:
-- job: Build_Test_Deploy
+- job: Build_Test_Deplay
   displayName: Build, Test and Deploy
   timeoutInMinutes: "130"
   steps:
