@@ -1,5 +1,5 @@
 {
-  "name": "tfmodule-azure-actiongroup",
+  "name": "tfmodule_azure_actiongroup",
   "version": "1.0.0",
   "description": "Alaska Airlines Azure ActionGroup Terraform Module",
   "directories": {

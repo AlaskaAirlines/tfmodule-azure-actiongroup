@@ -1,6 +1,17 @@
-.terraform
-terraform.tfstate
-*.tfstate*
-terraform.tfvars
+# Terraform
+**/.terraform
+terraform.tfstate*
+.terraform.tfstate.lock.info
 *.backup
+plan.out
+fixtures.auto.tfvars
+secrets.auto.tfvars
+
+# direnv
+.envrc
+
+# Node
 node_modules
+
+# OS
+.DS_Store
